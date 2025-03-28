@@ -1,3 +1,4 @@
+import "./App.scss";
 import Guestlist from "./components/Guestlist/Guestlist";
 
 const App = () => {

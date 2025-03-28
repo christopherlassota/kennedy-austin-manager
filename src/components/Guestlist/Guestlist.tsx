@@ -40,7 +40,7 @@ const Guestlist = () => {
     <section className="guestlist">
       <ul className="guestlist__legend">
         <li className="guestlist__category">Name</li>
-        <li className="guestlist__category">Contact</li>
+        <li className="guestlist__category">Email Address</li>
         <li className="guestlist__category">Status</li>
         <li className="guestlist__category">Address</li>
         <li className="guestlist__category">Action</li>
@@ -53,14 +53,14 @@ const Guestlist = () => {
                 <p className="guestlist__name">{guest.guest_firstname} {guest.guest_lastname}</p>
               </div>
               <div className="guestlist__item">
-                <p className="guestlist__contact">{guest.contact_email}</p>
+                <p className="guestlist__contact">{guest.contact_email ? guest.contact_email : ""}</p>
               </div>
               <div className="guestlist__item">
-                <p className="guestlist__status">{guest.rsvp}</p>
+                <p className="guestlist__status">{guest.rsvp ? guest.rsvp : "Pending"}</p>
               </div>
               <div className="guestlist__item">
-                <p className="guestlist__address">{guest.address}, {guest.city}</p>
-                <p className="guestlist__address">{guest.province}, {guest.postal_code}</p>
+                <p className="guestlist__address">{guest.address ? guest.address : "Address"}, </p>
+                <p className="guestlist__address">{guest.city ? guest.city : "City"}, {guest.province ? guest.province : "Province"}, {guest.postal_code ? guest.postal_code : "Postal Code"}</p>
               </div>
               <div className="guestlist__item">
                 <EditButton guest={guest} onGuestUpdate={refreshGuestList} />
