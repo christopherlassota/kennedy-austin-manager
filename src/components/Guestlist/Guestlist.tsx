@@ -1,6 +1,8 @@
 import "./Guestlist.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import EditButton from "../EditButton/Editbutton.tsx";
+import DeleteButton from "../DeleteButton/DeleteButton";
 
 const Guestlist = () => {
   interface guest {
@@ -17,18 +19,21 @@ const Guestlist = () => {
   }
 
   const [guestData, setGuestData] = useState<guest[]>([]);
+
+  const refreshGuestList = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/guestlist");
+      console.log('Guest data received:', response.data); // Debug log
+      setGuestData(
+        response.data.sort((a: any, b: any) => b.timestamp - a.timestamp)
+      );
+    } catch (error) {
+      console.error("Failed to fetch guest data", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchGuestData = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/guestlist");
-        setGuestData(
-          response.data.sort((a: any, b: any) => b.timestamp - a.timestamp)
-        );
-      } catch (error) {
-        console.error("Failed to fetch guest data", error);
-      }
-    };
-    fetchGuestData();
+    refreshGuestList();
   }, []);
 
   return (
@@ -41,42 +46,33 @@ const Guestlist = () => {
         <li className="guestlist__category">Action</li>
       </ul>
       <ul className="guestlist__list">
-        {guestData.map(
-          (
-            {
-              guest_firstname,
-              guest_lastname,
-              contact_email,
-              rsvp,
-              address,
-              city,
-              province,
-              postal_code,
-            },
-            index
-          ) => (
+        {guestData.map((guest, index) => {
+          return (
             <li key={index} className="guestlist__guest">
               <div className="guestlist__item">
-                <p className="guestlist__name">{guest_firstname} {guest_lastname}</p>
-                <p className="guestlist__name">{guest_firstname}</p>
+                <p className="guestlist__name">{guest.guest_firstname} {guest.guest_lastname}</p>
               </div>
               <div className="guestlist__item">
-                <p className="guestlist__contact">{contact_email}</p>
+                <p className="guestlist__contact">{guest.contact_email}</p>
               </div>
               <div className="guestlist__item">
-                <p className="guestlist__status">{rsvp}</p>
+                <p className="guestlist__status">{guest.rsvp}</p>
               </div>
               <div className="guestlist__item">
-                <p className="guestlist__address">{address}, {city}</p>
-                <p className="guestlist__address">{province}, {postal_code}</p>
+                <p className="guestlist__address">{guest.address}, {guest.city}</p>
+                <p className="guestlist__address">{guest.province}, {guest.postal_code}</p>
               </div>
               <div className="guestlist__item">
-                <button className="guestlist__action">Edit</button>
-                <button className="guestlist__action">Delete</button>
+                <EditButton guest={guest} onGuestUpdate={refreshGuestList} />
+                <DeleteButton 
+                  guestFirstName={guest.guest_firstname}
+                  guestLastName={guest.guest_lastname}
+                  onGuestDelete={refreshGuestList}
+                />
               </div>
             </li>
-          )
-        )}
+          );
+        })}
       </ul>
     </section>
   );
