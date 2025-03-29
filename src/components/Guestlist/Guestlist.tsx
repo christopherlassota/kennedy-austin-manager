@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import EditButton from "../EditButton/EditButton.tsx";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import NewGuestForm from "../NewGuestForm/NewGuestForm";
 
 const Guestlist = () => {
   interface guest {
@@ -65,6 +66,7 @@ const Guestlist = () => {
 
   return (
     <section className="guestlist">
+      <NewGuestForm onGuestAdded={refreshGuestList} />
       <div className="guestlist__filters">
         <input
           type="text"
