@@ -81,9 +81,9 @@ const Guestlist = () => {
           className="guestlist__filter"
         >
           <option value="">All RSVP Status</option>
-          <option value="pending">Pending</option>
-          <option value="confirmed">Confirmed</option>
-          <option value="declined">Declined</option>
+          <option value="Pending">Pending</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Declined">Declined</option>
         </select>
         <select
           value={filterCity}
@@ -120,7 +120,7 @@ const Guestlist = () => {
             </div>
             <div className="guestlist__item">
               <p className="guestlist__status">
-                {guest.rsvp ? guest.rsvp : "Pending"}
+                {guest.rsvp}
               </p>
             </div>
             <div className="guestlist__item">
