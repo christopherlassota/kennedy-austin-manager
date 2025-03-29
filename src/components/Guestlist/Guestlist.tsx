@@ -22,6 +22,8 @@ const Guestlist = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [filterRSVP, setFilterRSVP] = useState(""); // State for RSVP filter
   const [filterCity, setFilterCity] = useState(""); // State for city filter
+  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const guestsPerPage = 10; // Number of guests per page
 
   const refreshGuestList = async () => {
     try {
@@ -47,6 +49,19 @@ const Guestlist = () => {
     const matchesCity = filterCity ? guest.city === filterCity : true;
     return matchesSearch && matchesRSVP && matchesCity;
   });
+
+  // Calculate the guests to display on the current page
+  const indexOfLastGuest = currentPage * guestsPerPage;
+  const indexOfFirstGuest = indexOfLastGuest - guestsPerPage;
+  const currentGuests = filteredGuests.slice(indexOfFirstGuest, indexOfLastGuest);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(filteredGuests.length / guestsPerPage);
+
+  // Handle page navigation
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <section className="guestlist">
@@ -89,7 +104,7 @@ const Guestlist = () => {
         <li className="guestlist__category">Action</li>
       </ul>
       <ul className="guestlist__list">
-        {filteredGuests.map((guest, index) => (
+        {currentGuests.map((guest, index) => (
           <li key={index} className="guestlist__guest">
             <div className="guestlist__item">
               <p className="guestlist__name">
@@ -125,6 +140,17 @@ const Guestlist = () => {
           </li>
         ))}
       </ul>
+      <div className="guestlist__pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            className={`guestlist__page-button ${currentPage === index + 1 ? "active" : ""}`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </section>
   );
 };
