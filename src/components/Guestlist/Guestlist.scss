@@ -1,0 +1,34 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.guestlist {
+    margin: 1rem;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 15px;
+
+    &__legend {
+        @include flex-center(row, flex-start);
+        padding: 1rem;
+        border-bottom: 1px solid rgb(199, 199, 199);
+        background-color: rgb(221, 221, 221);
+        border-radius: 15px 15px 0 0;
+
+    }
+    &__category {
+        width: 20%;
+    }
+    // &__list {}
+    &__guest {
+        @include flex-center(row, flex-start);
+        padding: 1rem;
+        align-items: flex-start;
+        border-bottom: 1px solid rgb(199, 199, 199);
+    }
+    &__item {
+        width: 20%;
+    }
+    // &__name {}
+    // &__contact {}
+    // &__status {}
+    // &__address {}
+}
