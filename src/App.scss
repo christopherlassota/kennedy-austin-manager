@@ -1,0 +1,61 @@
+@use "./styles/variables" as *;
+@use "./styles/mixins" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+// Page Header
+h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.25rem;
+
+  @include tablet {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+}
+
+// Subheader
+h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 2.25rem;
+
+  @include tablet {
+    font-size: 4rem;
+    line-height: 2.5rem;
+  }
+}
+
+// Labels-links-buttons
+h3 {
+  font-size: 0.6875rem; // 11px
+  font-weight: 400;
+  line-height: 1rem; // 16px
+
+  @include tablet {
+    font-size: 1rem; // 12px
+    line-height: 1.125rem; // 18px
+  }
+}
+
+body {
+  font-weight: 400;
+  line-height: 160%;
+//   color: $primary-text;
+//   background-color: $primary-background;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+button {
+    cursor: pointer;
+}
