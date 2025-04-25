@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import EditButton from "../EditButton/EditButton.tsx";
 import DeleteButton from "../DeleteButton/DeleteButton";
-import NewGuestForm from "../NewGuestForm/NewGuestForm";
 
 const Guestlist = () => {
   interface guest {
@@ -28,7 +27,7 @@ const Guestlist = () => {
 
   const refreshGuestList = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/guestlist");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
       setGuestData(
         response.data.sort((a: any, b: any) => b.timestamp - a.timestamp)
       );
@@ -66,7 +65,6 @@ const Guestlist = () => {
 
   return (
     <section className="guestlist">
-      <NewGuestForm onGuestAdded={refreshGuestList} />
       <div className="guestlist__filters">
         <input
           type="text"

@@ -24,7 +24,7 @@ const EditButton = ({ guest, onGuestUpdate }: EditButtonProps) => {
   const handleEdit = async () => {
     try {
       console.log('Updating guest:', editedGuest);
-      await axios.put('http://localhost:8080/guestlist', {
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}`, {
         ...editedGuest
       });
       setIsEditing(false);

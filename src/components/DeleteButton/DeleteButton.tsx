@@ -16,7 +16,7 @@ const DeleteButton = ({ guestFirstName, guestLastName, onGuestDelete }: DeleteBu
     if (window.confirm(`Are you sure you want to delete ${guestFirstName} ${guestLastName}?`)) {
       try {
         console.log('Deleting guest:', guestFirstName, guestLastName);
-        await axios.delete('http://localhost:8080/guestlist', {
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}`, {
           data: { 
             guest_firstname: guestFirstName,
             guest_lastname: guestLastName
