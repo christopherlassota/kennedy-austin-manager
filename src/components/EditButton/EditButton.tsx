@@ -24,8 +24,19 @@ const EditButton = ({ guest, onGuestUpdate }: EditButtonProps) => {
   const handleEdit = async () => {
     try {
       console.log('Updating guest:', editedGuest);
-      await axios.put(`${import.meta.env.VITE_BACKEND_URL}`, {
-        ...editedGuest
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}update`, {
+        guest_firstname: editedGuest.guest_firstname,
+        guest_lastname: editedGuest.guest_lastname,
+        updatedData: {
+          rsvp: editedGuest.rsvp,
+          contact_email: editedGuest.contact_email,
+          group_name: editedGuest.group,
+          dietary_restrictions: editedGuest.dietary_restrictions,
+          address: editedGuest.address,
+          city: editedGuest.city,
+          province: editedGuest.province,
+          postal_code: editedGuest.postal_code
+        }
       });
       setIsEditing(false);
       onGuestUpdate();
